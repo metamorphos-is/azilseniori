@@ -23,3 +23,9 @@ npm run deploy
 La fiecare push pe `main`, GitHub Actions urcă fișierele statice pe Hostinger.
 
 Secret necesar în GitHub repo: `HOSTINGER_API_TOKEN` (din hPanel → API).
+
+## Cursor Cloud
+
+- **Runtime:** site static, fără server obligatoriu pentru dev
+- **Verificare:** `git status`, deschide `index.html`
+- **Deploy:** push pe `main` declanșează GitHub Actions
