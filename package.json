@@ -1,0 +1,12 @@
+{
+  "name": "azilseniori",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Demo static Azil Seniori — day/night mode, deploy pe Hostinger",
+  "scripts": {
+    "deploy": "node deploy.mjs"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  }
+}
