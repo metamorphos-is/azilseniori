@@ -23,13 +23,24 @@ API local: `npm run dev:api` (port 4000)
 
 Subdomeniu: `mediumorchid-kingfisher-188706.hostingersite.com`
 
-### Variabile de mediu (hPanel → Node.js → Environment)
+### Variabile de mediu (hPanel → Websites → Node.js → Environment)
 
 ```
 NODE_ENV=production
-DATABASE_URL=mysql://u422988064_azilseniori:PASSWORD@localhost:3306/u422988064_azilseniori
+DATABASE_URL=mysql://u422988064_azilseniori:PAROLA@localhost:3306/u422988064_azilseniori
 SESSION_SECRET=<random-32-chars>
 ```
+
+### Setări build (hPanel → Node.js Web App)
+
+| Câmp | Valoare |
+|------|---------|
+| Install | `npm ci` |
+| Build | `npm run build` |
+| Start | `npm run start -- -p $PORT` |
+| Node.js | 20 |
+| Root directory | `.` |
+| Output directory | `apps/web/.next` |
 
 ### Deploy din Git (recomandat)
 
