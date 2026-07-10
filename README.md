@@ -1,45 +1,38 @@
-# Azil Seniori — Demo Day/Night Mode
+# Deploy din Git pe Hostinger
 
-Aplicație web statică simplă, cu deploy automat pe Hostinger din Git.
+Site-ul este **static** (HTML/CSS/JS), dar **versiunile și deploy-ul** vin din Git.
 
-## Live
+## Varianta recomandată: Git nativ Hostinger
 
-https://mediumorchid-kingfisher-188706.hostingersite.com
+Hostinger trage direct din GitHub la fiecare push.
 
-## Ce face
+1. **hPanel** → site-ul tău → **Advanced → Git**
+2. **Continue with GitHub** → autorizează
+3. Selectează repo: `metamorphos-is/azilseniori`
+4. Branch: `main`
+5. Root directory: `public_html`
+6. **Deploy** + activează **Auto deployment**
+7. Copiază **Webhook URL** din hPanel
+8. În GitHub → **Settings → Secrets → Actions** → adaugă:
+   - `HOSTINGER_GIT_WEBHOOK` = URL-ul webhook
 
-- Comută între **Day Mode** și **Night Mode**
-- Salvează preferința în browser (localStorage)
-- Deploy automat la push pe `main`
+După setup, la fiecare `git push` pe `main`:
+- GitHub Actions declanșează webhook-ul
+- Hostinger face pull din repo și publică fișierele
 
-## Structură
+## Verificare
 
-```
-index.html   — pagina principală
-style.css    — teme day/night
-script.js    — comutator temă
-```
+Footer-ul site-ului arată commit-ul Git, ex: `Git f65ec65`.
 
-## Deploy din Git (recomandat)
+## Flux zilnic
 
-1. Modifici codul local
-2. Commit + push pe `main`
-3. GitHub Actions deploy-ează automat pe Hostinger
-
-### Setup o singură dată
-
-În GitHub → repo **Settings → Secrets → Actions**, adaugă:
-
-- `HOSTINGER_API_TOKEN` — token din hPanel → Advanced → API
-
-## Deploy manual (local)
-
-```powershell
-Compress-Archive -Path index.html,style.css,script.js -DestinationPath site.zip -Force
-node deploy.mjs site.zip
+```bash
+git add .
+git commit -m "schimbare"
+git push
 ```
 
-Necesită autentificare Hostinger (OAuth sau `HOSTINGER_API_TOKEN`).
+Modificările apar live după deploy (câteva secunde).
 
 ## Repo
 

@@ -15,13 +15,26 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Create static archive
+      - name: Inject git version into site
         run: |
-          zip -r site.zip index.html style.css script.js
+          SHORT_SHA="${GITHUB_SHA::7}"
+          sed -i "s/__GIT_SHA__/${SHORT_SHA}/g" index.html
 
-      - name: Deploy static site
+      - name: Deploy to Hostinger
         env:
+          HOSTINGER_GIT_WEBHOOK: ${{ secrets.HOSTINGER_GIT_WEBHOOK }}
           HOSTINGER_API_TOKEN: ${{ secrets.HOSTINGER_API_TOKEN }}
+          HOSTINGER_DOMAIN: mediumorchid-kingfisher-188706.hostingersite.com
         run: |
-          npm install @modelcontextprotocol/sdk@latest
-          node .github/scripts/deploy-hostinger.mjs site.zip
+          if [ -n "$HOSTINGER_GIT_WEBHOOK" ]; then
+            echo "Deploy via Hostinger Git webhook..."
+            curl -sS -X POST "$HOSTINGER_GIT_WEBHOOK"
+          elif [ -n "$HOSTINGER_API_TOKEN" ]; then
+            echo "Deploy via Hostinger API..."
+            zip -r site.zip index.html style.css script.js
+            npm install @modelcontextprotocol/sdk@latest
+            node .github/scripts/deploy-hostinger.mjs site.zip
+          else
+            echo "Missing secret: set HOSTINGER_GIT_WEBHOOK (recommended) or HOSTINGER_API_TOKEN"
+            exit 1
+          fi
