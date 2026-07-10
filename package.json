@@ -1,12 +1,29 @@
 {
   "name": "azilseniori",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
-  "description": "Demo static Azil Seniori — day/night mode, deploy pe Hostinger",
+  "description": "Platformă azilseniori.ro — marketplace cămine seniori",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "deploy": "node deploy.mjs"
+    "postinstall": "npm run db:generate",
+    "dev": "npm run dev -w @azilseniori/web",
+    "dev:api": "npm run dev -w @azilseniori/api",
+    "build": "npm run build -w @azilseniori/database && npm run build -w @azilseniori/api && npm run build -w @azilseniori/web",
+    "start": "npm run migrate:deploy -w @azilseniori/database && npm run start -w @azilseniori/web",
+    "deploy:hostinger": "node scripts/deploy-hostinger.mjs",
+    "lint": "npm run lint -w @azilseniori/web && npm run lint -w @azilseniori/api",
+    "typecheck": "npm run typecheck -w @azilseniori/web && npm run typecheck -w @azilseniori/api && npm run typecheck -w @azilseniori/database",
+    "db:generate": "npm run generate -w @azilseniori/database",
+    "db:migrate": "npm run migrate -w @azilseniori/database",
+    "db:seed": "npm run seed -w @azilseniori/database"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   },
   "devDependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0"
+    "@modelcontextprotocol/sdk": "^1.25.0"
   }
 }

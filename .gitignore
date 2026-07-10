@@ -1,6 +1,36 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build
+dist/
+.next/
+out/
+build/
+*.tsbuildinfo
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
 .DS_Store
 Thumbs.db
-*.log
+
+# IDE
 .vscode/
-node_modules/
+.idea/
+
+# Prisma
+packages/database/prisma/*.db
+
+# Misc
 *.zip
+coverage/
+.turbo/
