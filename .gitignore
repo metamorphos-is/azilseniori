@@ -7,7 +7,6 @@ node_modules/
 dist/
 .next/
 out/
-out/
 *.tsbuildinfo
 
 # Env
@@ -30,7 +29,8 @@ Thumbs.db
 # Prisma
 packages/database/prisma/*.db
 
-# Misc
+# Ref CRM extract (local only)
+_ref-crm/
 *.zip
 coverage/
 .turbo/

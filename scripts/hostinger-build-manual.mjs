@@ -60,6 +60,7 @@ async function triggerBuild(archiveBasename) {
   const buildData = {
     node_version: 20,
     package_manager: "npm",
+    app_type: "express",
     root_directory: ".",
     build_script: "build",
     entry_file: "server.js",

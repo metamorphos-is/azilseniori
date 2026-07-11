@@ -1,0 +1,44 @@
+<%- include("partials/header", { title: home.name, flash }) %>
+
+<section class="detail-hero card">
+  <div class="detail-head">
+    <div>
+      <% if (home.isVerified) { %><span class="pill verified">Verificat</span><% } %>
+      <h1><%= home.name %></h1>
+      <p class="muted"><%= home.city %>, <%= home.county %></p>
+    </div>
+    <div class="detail-meta">
+      <span class="rating lg">★ <%= home.rating.toFixed(1) %></span>
+      <span class="price lg"><%= fmtPrice(home.priceFrom, home.priceTo) %></span>
+    </div>
+  </div>
+  <p class="detail-desc"><%= home.description %></p>
+  <div class="tags">
+    <% (Array.isArray(home.services) ? home.services : []).forEach((s) => { %>
+      <span class="tag"><%= s %></span>
+    <% }) %>
+  </div>
+</section>
+
+<section class="grid two section">
+  <div class="card">
+    <h2>Informații</h2>
+    <dl class="meta-list">
+      <div><dt>Recenzii</dt><dd><%= home.reviewCount %></dd></div>
+      <div><dt>Status</dt><dd><%= home.isVerified ? "Verificat" : "În evaluare" %></dd></div>
+      <div><dt>Preț</dt><dd><%= fmtPrice(home.priceFrom, home.priceTo) %></dd></div>
+    </dl>
+  </div>
+  <div class="card">
+    <h2>Solicită informații</h2>
+    <form method="post" action="/camin/<%= home.slug %>/contact" class="stack-form">
+      <label><span>Nume</span><input name="name" required></label>
+      <label><span>Email</span><input type="email" name="email"></label>
+      <label><span>Telefon</span><input type="tel" name="phone"></label>
+      <label><span>Mesaj</span><textarea name="message" rows="4" placeholder="Spune-ne ce cauți..."></textarea></label>
+      <button class="button primary" type="submit">Trimite solicitarea</button>
+    </form>
+  </div>
+</section>
+
+<%- include("partials/footer") %>

@@ -1,0 +1,39 @@
+<%- include("partials/header", { title: "Panou", flash }) %>
+
+<section class="page-hero compact">
+  <span class="eyebrow">Administrare</span>
+  <h1>Panou platformă</h1>
+  <p>Statistici live din baza de date MySQL.</p>
+</section>
+
+<section class="stat-grid wide section">
+  <div class="card stat"><span>Cămine</span><strong><%= stats.homes %></strong></div>
+  <div class="card stat"><span>Verificate</span><strong><%= stats.verified %></strong></div>
+  <div class="card stat"><span>Solicitări</span><strong><%= stats.inquiries %></strong></div>
+  <div class="card stat"><span>Status app</span><strong class="ok-text">Live</strong></div>
+</section>
+
+<section class="card section">
+  <h2>Solicitări recente</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Data</th><th>Tip</th><th>Nume</th><th>Contact</th><th>Cămin</th></tr></thead>
+      <tbody>
+        <% inquiries.forEach((item) => { %>
+          <tr>
+            <td><%= fmt(item.createdAt) %></td>
+            <td><span class="pill"><%= item.type %></span></td>
+            <td><%= item.name %></td>
+            <td><%= item.phone || item.email || '-' %></td>
+            <td><%= item.careHome?.name || '-' %></td>
+          </tr>
+        <% }) %>
+        <% if (!inquiries.length) { %>
+          <tr><td colspan="5">Nicio solicitare încă. <a href="/caut">Explorează căminele</a>.</td></tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<%- include("partials/footer") %>

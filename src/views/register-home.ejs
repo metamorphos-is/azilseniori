@@ -1,0 +1,30 @@
+<%- include("partials/header", { title: "Înscrie un cămin", flash }) %>
+
+<section class="page-hero compact">
+  <span class="eyebrow">Înscriere cămin</span>
+  <h1>Adaugă căminul tău pe platformă</h1>
+  <p>Completează detaliile — profilul intră în evaluare imediat.</p>
+</section>
+
+<form class="card form-panel" method="post" action="/inscrie-camin">
+  <div class="form-grid two-col">
+    <label><span>Nume cămin *</span><input name="name" required placeholder="ex. Residența Golden Years"></label>
+    <label><span>Persoană contact</span><input name="contactName" placeholder="Nume reprezentant"></label>
+    <label><span>Județ *</span>
+      <select name="county" required>
+        <option value="">Alege județul</option>
+        <% counties.forEach((c) => { %><option value="<%= c %>"><%= c %></option><% }) %>
+      </select>
+    </label>
+    <label><span>Oraș *</span><input name="city" required placeholder="ex. Cluj-Napoca"></label>
+    <label><span>Preț de la (RON)</span><input type="number" name="priceFrom" min="500" step="100"></label>
+    <label><span>Preț până la (RON)</span><input type="number" name="priceTo" min="500" step="100"></label>
+    <label><span>Email</span><input type="email" name="email"></label>
+    <label><span>Telefon</span><input type="tel" name="phone"></label>
+    <label class="full"><span>Servicii (separate prin virgulă)</span><input name="services" placeholder="Îngrijire medicală, Fizioterapie, Masă echilibrată"></label>
+    <label class="full"><span>Descriere</span><textarea name="description" rows="5" placeholder="Descrie căminul, facilitățile și ce îl face special..."></textarea></label>
+  </div>
+  <button class="button primary lg" type="submit">Trimite cererea de înscriere</button>
+</form>
+
+<%- include("partials/footer") %>

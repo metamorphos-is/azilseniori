@@ -180,3 +180,44 @@ model AuditLog {
   @@index([createdAt])
   @@map("audit_logs")
 }
+
+model CareHome {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  city        String
+  county      String
+  description String?  @db.Text
+  priceFrom   Int?     @map("price_from")
+  priceTo     Int?     @map("price_to")
+  services    Json     @default("[]")
+  rating      Float    @default(0)
+  reviewCount Int      @default(0) @map("review_count")
+  isVerified  Boolean  @default(false) @map("is_verified")
+  isPublished Boolean  @default(true) @map("is_published")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  inquiries LeadInquiry[]
+
+  @@index([county, city])
+  @@index([isPublished])
+  @@map("care_homes")
+}
+
+model LeadInquiry {
+  id         String    @id @default(cuid())
+  type       String
+  name       String
+  email      String?
+  phone      String?
+  message    String?   @db.Text
+  metadata   Json?
+  careHomeId String?   @map("care_home_id")
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  careHome CareHome? @relation(fields: [careHomeId], references: [id], onDelete: SetNull)
+
+  @@index([type, createdAt])
+  @@map("lead_inquiries")
+}

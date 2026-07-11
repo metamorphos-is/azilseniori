@@ -1,0 +1,89 @@
+<%- include("partials/header", { title: "Acasă", flash }) %>
+
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">Platformă vibrantă pentru familii</span>
+    <h1>Găsește căminul potrivit pentru cei dragi, cu încredere și transparență.</h1>
+    <p class="lead">
+      Căutare inteligentă, profiluri verificate, solicitări directe și administrare completă pentru proprietari.
+    </p>
+    <div class="hero-actions">
+      <a class="button primary lg" href="/caut">Începe căutarea</a>
+      <a class="button ghost lg" href="/inscrie-camin">Listez un cămin</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="hero-card-inner">
+      <span class="pill live">Live · Node.js</span>
+      <h3>Statistici platformă</h3>
+      <div class="stat-grid">
+        <div><span>Cămine listate</span><strong><%= stats.homes %></strong></div>
+        <div><span>Verificate</span><strong><%= stats.verified %></strong></div>
+        <div><span>Solicitări</span><strong><%= stats.inquiries %></strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>De ce azilseniori.ro?</h2>
+    <p>Tot ce ai nevoie într-o singură aplicație modernă.</p>
+  </div>
+  <div class="feature-grid">
+    <article class="card feature">
+      <div class="icon">🔍</div>
+      <h3>Căutare avansată</h3>
+      <p>Filtrează după județ, buget și servicii. Compară opțiuni în câteva secunde.</p>
+    </article>
+    <article class="card feature">
+      <div class="icon">✅</div>
+      <h3>Profiluri verificate</h3>
+      <p>Badge de verificare, recenzii moderate și informații actualizate.</p>
+    </article>
+    <article class="card feature">
+      <div class="icon">💬</div>
+      <h3>Contact direct</h3>
+      <p>Trimite solicitări din platformă și urmărește răspunsurile.</p>
+    </article>
+    <article class="card feature">
+      <div class="icon">📊</div>
+      <h3>Panou proprietari</h3>
+      <p>Înscrie căminul, gestionează lead-uri și monitorizează performanța.</p>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Cămine recomandate</h2>
+    <a href="/caut" class="text-link">Vezi toate →</a>
+  </div>
+  <div class="home-grid">
+    <% featured.forEach((home) => { %>
+      <article class="card home-card">
+        <div class="home-card-top">
+          <% if (home.isVerified) { %><span class="pill verified">Verificat</span><% } %>
+          <span class="rating">★ <%= home.rating.toFixed(1) %></span>
+        </div>
+        <h3><a href="/camin/<%= home.slug %>"><%= home.name %></a></h3>
+        <p class="muted"><%= home.city %>, <%= home.county %></p>
+        <p class="clamp"><%= home.description %></p>
+        <div class="home-card-foot">
+          <span class="price"><%= fmtPrice(home.priceFrom, home.priceTo) %></span>
+          <a class="button small" href="/camin/<%= home.slug %>">Detalii</a>
+        </div>
+      </article>
+    <% }) %>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div>
+    <h2>Ești proprietar de cămin?</h2>
+    <p>Înscrie-te gratuit și primește solicitări calificate de la familii.</p>
+  </div>
+  <a class="button primary lg" href="/inscrie-camin">Înscrie acum</a>
+</section>
+
+<%- include("partials/footer") %>

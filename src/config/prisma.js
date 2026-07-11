@@ -1,0 +1,19 @@
+const { PrismaClient } = require("@prisma/client");
+
+let prisma;
+
+if (process.env.NODE_ENV === "production") {
+  prisma = new PrismaClient();
+} else {
+  if (!global.prisma) {
+    global.prisma = new PrismaClient();
+  }
+  prisma = global.prisma;
+}
+
+async function connectDB() {
+  await prisma.$connect();
+  console.log("Connected to database.");
+}
+
+module.exports = { prisma, connectDB };

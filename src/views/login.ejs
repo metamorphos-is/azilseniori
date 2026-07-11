@@ -1,0 +1,19 @@
+<%- include("partials/header", { title: "Autentificare", flash }) %>
+
+<section class="auth-wrap">
+  <div class="card auth-card">
+    <span class="eyebrow">Cont utilizator</span>
+    <h1>Autentificare</h1>
+    <p class="muted">OAuth Google/Facebook și verificare SMS OTP — Faza 2.</p>
+    <form method="post" action="/autentificare" class="stack-form">
+      <label><span>Email</span><input type="email" name="email" required></label>
+      <label><span>Parolă</span><input type="password" name="password" required></label>
+      <button class="button primary" type="submit">Intră în cont</button>
+    </form>
+    <div class="auth-alt">
+      <p>Nu ai cont? <a href="/inscrie-camin">Înscrie un cămin</a> sau caută fără cont.</p>
+    </div>
+  </div>
+</section>
+
+<%- include("partials/footer") %>

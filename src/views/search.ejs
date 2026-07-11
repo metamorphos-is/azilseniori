@@ -1,0 +1,70 @@
+<%- include("partials/header", { title: "Caut un cămin", flash }) %>
+
+<section class="page-hero compact">
+  <span class="eyebrow">Căutare cămine</span>
+  <h1>Găsește căminul potrivit</h1>
+  <p>Filtrează după locație, buget și nevoi specifice.</p>
+</section>
+
+<form class="card search-form" method="get" action="/caut">
+  <div class="form-grid">
+    <label>
+      <span>Cuvânt cheie</span>
+      <input type="search" name="q" value="<%= query.q || '' %>" placeholder="Nume, oraș, servicii...">
+    </label>
+    <label>
+      <span>Județ</span>
+      <select name="county">
+        <option value="">Toate județele</option>
+        <% counties.forEach((c) => { %>
+          <option value="<%= c %>" <%= query.county === c ? 'selected' : '' %>><%= c %></option>
+        <% }) %>
+      </select>
+    </label>
+    <label>
+      <span>Buget maxim (RON/lună)</span>
+      <input type="number" name="maxPrice" value="<%= query.maxPrice || '' %>" placeholder="ex. 3500" min="500" step="100">
+    </label>
+    <div class="form-actions">
+      <button type="submit" class="button primary">Caută</button>
+      <a href="/caut" class="button">Resetează</a>
+    </div>
+  </div>
+</form>
+
+<section class="section">
+  <div class="section-head">
+    <h2><%= results.length %> rezultate</h2>
+  </div>
+  <% if (!results.length) { %>
+    <div class="card empty">
+      <h3>Niciun cămin găsit</h3>
+      <p>Încearcă alte filtre sau <a href="/inscrie-camin">înscrie un cămin nou</a>.</p>
+    </div>
+  <% } else { %>
+    <div class="home-grid">
+      <% results.forEach((home) => { %>
+        <article class="card home-card">
+          <div class="home-card-top">
+            <% if (home.isVerified) { %><span class="pill verified">Verificat</span><% } %>
+            <span class="rating">★ <%= home.rating.toFixed(1) %> · <%= home.reviewCount %> recenzii</span>
+          </div>
+          <h3><a href="/camin/<%= home.slug %>"><%= home.name %></a></h3>
+          <p class="muted"><%= home.city %>, <%= home.county %></p>
+          <p class="clamp"><%= home.description %></p>
+          <div class="tags">
+            <% (Array.isArray(home.services) ? home.services : []).slice(0, 3).forEach((s) => { %>
+              <span class="tag"><%= s %></span>
+            <% }) %>
+          </div>
+          <div class="home-card-foot">
+            <span class="price"><%= fmtPrice(home.priceFrom, home.priceTo) %></span>
+            <a class="button small primary" href="/camin/<%= home.slug %>">Vezi profil</a>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+  <% } %>
+</section>
+
+<%- include("partials/footer") %>
