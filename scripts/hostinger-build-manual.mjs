@@ -62,7 +62,7 @@ async function triggerBuild(archiveBasename) {
     package_manager: "npm",
     root_directory: ".",
     build_script: "build",
-    output_directory: "apps/web/.next",
+    entry_file: "server.js",
     source_type: "archive",
     source_options: { archive_path: archiveBasename },
   };

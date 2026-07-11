@@ -37,10 +37,10 @@ SESSION_SECRET=<random-32-chars>
 |------|---------|
 | Install | `npm ci` |
 | Build | `npm run build` |
-| Start | `npm run start -- -p $PORT` |
+| Start / Entry file | `node server.js` (sau `npm start`) |
 | Node.js | 20 |
 | Root directory | `.` |
-| Output directory | `apps/web/.next` |
+| Output directory | *(gol — Next.js SSR)* |
 
 ### Deploy din Git (recomandat)
 
